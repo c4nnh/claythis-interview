@@ -8,6 +8,8 @@ LABEL fly_launch_runtime="Next.js"
 
 WORKDIR /app
 
+ENV NEXT_PUBLIC_API_BASE_URL=${NEXT_PUBLIC_API_BASE_URL}
+
 # Install pnpm
 ARG PNPM_VERSION=8.15.5
 RUN npm install -g pnpm@$PNPM_VERSION
@@ -20,8 +22,8 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential node-gyp openssl pkg-config python-is-python3
 
 # Install node modules
-COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --prod=false
+COPY package.json ./
+RUN pnpm install --prod=false
 
 # Copy application code
 COPY . .
