@@ -8,9 +8,32 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      height: {
+        13: "52px",
+      },
+      width: {
+        13: "52px",
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        primary: {
+          DEFAULT: "#253BFF",
+        },
+        "arctic-blue": {
+          600: "#253BFF",
+        },
+        "blue-gray": {
+          50: "#F9FAFB",
+          200: "#EAECF0",
+          300: "#D0D5DD",
+          400: "#98A2B3",
+          500: "#667085",
+          600: "#475467",
+          800: "#1D2939",
+          900: "#101828",
+        },
+        "lime-green": {
+          400: "#9FF443",
+        },
       },
     },
   },

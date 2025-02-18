@@ -6,8 +6,6 @@ import { EnvironmentVariables } from "~/common/types/env.type";
 @Injectable()
 export class LoggerService {
   private data: object = {};
-  private className: string = "UnknownClassName";
-  private functionName: string = "UnknownFunctionName";
   private logger: Logtail;
 
   constructor(
@@ -32,8 +30,6 @@ export class LoggerService {
 
   info(message: string, data: object = {}) {
     this.logger.info(message, {
-      className: this.className,
-      functionName: this.functionName,
       ...this.data,
       ...data,
     });
@@ -41,8 +37,6 @@ export class LoggerService {
 
   error(message: string, data: object = {}) {
     this.logger.error(message, {
-      className: this.className,
-      functionName: this.functionName,
       ...this.data,
       ...data,
     });

@@ -31,7 +31,6 @@ export class MenusService {
         skip: queries.skip,
         orderBy: {
           createdAt: "desc",
-          name: "asc",
         },
       }),
       this.prismaService.menu.count({
@@ -53,30 +52,42 @@ export class MenusService {
   async getMenuDetails(id: string) {
     this.request.context.logger.info("Get menu details", { menuId: id });
 
-    const menus = await this.prismaService.menu.findMany({
-      where: {
-        OR: [
-          {
-            id,
-          },
-          {
-            rootId: id,
-          },
-        ],
-      },
-    });
+    const menu = await this.assertMenu(id);
 
-    const root = menus.find((menu) => menu.id === id);
-
-    if (!root) {
+    if (!menu) {
       this.request.context.logger.error("Menu not found");
       throw new NotFoundException(ErrorCode.MENU_NOT_FOUND);
     }
 
-    const relatedMenus = menus.filter((menu) => menu.id !== id);
+    const isRoot = !menu.rootId;
+
+    const conditions: Prisma.MenuWhereInput = {};
+    if (isRoot) {
+      conditions.OR = [
+        {
+          id,
+        },
+        {
+          rootId: menu.id,
+        },
+      ];
+    } else {
+      conditions.OR = [
+        {
+          id: menu.rootId,
+        },
+        {
+          rootId: menu.rootId,
+        },
+      ];
+    }
+
+    const relatedMenus = await this.prismaService.menu.findMany({
+      where: conditions,
+    });
 
     return {
-      ...root,
+      ...menu,
       relatedMenus,
     };
   }
@@ -97,6 +108,7 @@ export class MenusService {
           id: parentMenu.id,
         },
       };
+      createMenuData.depth = parentMenu.depth + 1;
 
       const rootId = parentMenu.rootId || parentMenu.id;
       createMenuData.root = {
@@ -150,6 +162,10 @@ export class MenusService {
     const menu = await this.prismaService.menu.findUnique({
       where: {
         id,
+      },
+      include: {
+        parent: true,
+        root: true,
       },
     });
 

@@ -16,7 +16,8 @@ datasource db {
 model Menu {
   id String @id @default(uuid())
 
-  name String
+  name  String
+  depth Int    @default(0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt()

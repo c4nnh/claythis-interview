@@ -8,9 +8,11 @@ type MenuType = Omit<PMenu, "parentId" | "rootId"> & {
 };
 
 class Menu implements MenuType {
+  id: string;
+
   name: string;
 
-  id: string;
+  depth: number;
 
   createdAt: Date;
 

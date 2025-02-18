@@ -31,8 +31,8 @@ async function bootstrap() {
   });
 
   const config = new DocumentBuilder()
-    .setTitle("Enterprise Management API")
-    .setDescription("Open API of Enterprise Management")
+    .setTitle("Menu management API")
+    .setDescription("Open API of Menu Management")
     .setVersion("1.0")
     .addBearerAuth()
     .build();
