@@ -23,7 +23,7 @@ RUN apt-get update -qq && \
 
 # Install node modules
 COPY package.json prisma ./
-RUN npm install
+RUN npm install --include=dev
 
 # Copy application code
 COPY . .
