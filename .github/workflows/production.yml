@@ -1,0 +1,26 @@
+name: Deployment
+on:
+  push:
+    branches:
+      - main
+concurrency:
+  group: prd
+jobs:
+  deploy:
+    name: Deploy apps to production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+      - uses: dopplerhq/cli-action@v3
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v40
+      - run: ./cicd/index.sh
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+          BEFORE_SHA: ${{ github.event.before }}
+          AFTER_SHA: ${{ github.sha }}
+          CHANGED_FILES: ${{ steps.changed-files.outputs.all_changed_files }}
+          DOPPLER_TOKEN: ${{ secrets.DOPPLER_TOKEN }}
+          FLY_ENV: prd
