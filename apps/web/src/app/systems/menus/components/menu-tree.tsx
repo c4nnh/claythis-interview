@@ -60,11 +60,13 @@ export function MenuTree() {
           )}
         />
       </div>
-      <TreeItem
-        {...rootMenu}
-        expandMenuIds={expandMenuIds}
-        setExpandMenuIds={setExpandMenuIds}
-      />
+      <div className="flex max-h-[720px] max-w-[520px] overflow-auto pr-4">
+        <TreeItem
+          {...rootMenu}
+          expandMenuIds={expandMenuIds}
+          setExpandMenuIds={setExpandMenuIds}
+        />
+      </div>
     </div>
   );
 }
