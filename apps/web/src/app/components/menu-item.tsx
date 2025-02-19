@@ -23,12 +23,12 @@ export const menuItems: Record<
       {
         label: "System Code",
         icon: <IconSubMenu1 />,
-        url: "#",
+        url: "/systems/system-code",
       },
       {
         label: "Properties",
         icon: <IconSubMenu2 />,
-        url: "#",
+        url: "/systems/properties",
       },
       {
         label: "Menus",
@@ -38,7 +38,7 @@ export const menuItems: Record<
       {
         label: "API List",
         icon: <IconSubMenu2 />,
-        url: "#",
+        url: "/systems/api-list",
       },
     ],
   },
