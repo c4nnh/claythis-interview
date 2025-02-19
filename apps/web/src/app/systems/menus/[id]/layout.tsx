@@ -1,5 +1,6 @@
 "use client";
 
+import { Loading } from "@/components/composites/loading";
 import { useOnMount } from "@/hooks/use-onmount";
 import { menuActions, menuState } from "@/stores/slices/menu";
 import { useParams } from "next/navigation";
@@ -23,7 +24,7 @@ export default function MenuDetailsLayout({
   });
 
   if (isFetchingDetails) {
-    return <span>Loading...</span>;
+    return <Loading />;
   }
 
   return children;

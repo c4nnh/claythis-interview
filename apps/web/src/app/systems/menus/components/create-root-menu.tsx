@@ -75,6 +75,7 @@ export function CreateRootMenu() {
             inputProps={{
               placeholder: "Enter menu name",
               className: "w-full",
+              readOnly: isCreating,
             }}
             className="w-full"
           />
@@ -83,6 +84,7 @@ export function CreateRootMenu() {
               label="Create"
               className="h-13 rounded-full"
               onClick={handleSubmit(create)}
+              loading={isCreating}
             />
           </DialogFooter>
         </DialogContent>

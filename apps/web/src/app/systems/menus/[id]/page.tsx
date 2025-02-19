@@ -21,7 +21,7 @@ type FormData = z.infer<typeof UpdateMenuSchema>;
 export default function MenuDetailsPage() {
   const { id } = useParams<MenuDetailsParams>();
   const dispatch = useDispatch();
-  const { selectedMenu, isUpdating, rootMenu } = useSelector(menuState);
+  const { selectedMenu, isUpdating } = useSelector(menuState);
   const formMethods = useForm<FormData>({
     resolver: zodResolver(UpdateMenuSchema),
   });
@@ -91,6 +91,7 @@ export default function MenuDetailsPage() {
           inputProps={{
             placeholder: "Enter menu name",
             className: "w-full lg:w-1/2",
+            readOnly: isUpdating,
           }}
           className="w-full"
         />
@@ -98,6 +99,7 @@ export default function MenuDetailsPage() {
           label="Save"
           className={cn("h-13 w-1/2 rounded-full")}
           onClick={handleSubmit(update)}
+          loading={isUpdating}
         />
       </FormProvider>
     </div>

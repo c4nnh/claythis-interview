@@ -80,6 +80,7 @@ export default function CreateSubMenuPage() {
           inputProps={{
             placeholder: "Enter menu name",
             className: "w-full lg:w-1/2",
+            readOnly: isCreating,
           }}
           className="w-full"
         />
@@ -87,6 +88,7 @@ export default function CreateSubMenuPage() {
           label="Create"
           className={cn("h-13 rounded-full", "w-full lg:w-1/2")}
           onClick={handleSubmit(create)}
+          loading={isCreating}
         />
       </FormProvider>
     </div>
