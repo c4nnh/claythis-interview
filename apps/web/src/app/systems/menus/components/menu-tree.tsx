@@ -19,7 +19,12 @@ type Menu = {
 export function MenuTree() {
   const { rootMenu } = useSelector(menuState);
   const [expandMenuIds, setExpandMenuIds] = useState<string[]>([]);
-  const isExpandAll = expandMenuIds.length === rootMenu?.relatedMenus?.length;
+  const expandableMenuIds = (rootMenu?.relatedMenus
+    ?.filter((menu) => !!menu.parentId)
+    ?.map((menu) => menu.parentId)
+    ?.filter((e, i, self) => i === self.indexOf(e)) || []) as string[];
+
+  const isExpandAll = expandMenuIds.length === expandableMenuIds.length;
   const isCollapseAll = !expandMenuIds.length;
 
   function expandAll() {
@@ -27,7 +32,11 @@ export function MenuTree() {
       return;
     }
 
-    setExpandMenuIds(rootMenu.relatedMenus.map((menu) => menu.id));
+    setExpandMenuIds(
+      rootMenu.relatedMenus
+        .filter((menu) => !!menu.parentId)
+        .map((menu) => menu.parentId) as string[],
+    );
   }
 
   function collapseAll() {
@@ -137,10 +146,7 @@ export function TreeItem({
             title="Toggle expand menu"
           />
           <span
-            className={cn(
-              "cursor-pointer text-sm text-blue-gray-900",
-              !hasChildren ? "pl-2" : "pl-1",
-            )}
+            className={cn("cursor-pointer pl-2 text-sm text-blue-gray-900")}
             onClick={goToDetails}
           >
             {menu.name}
