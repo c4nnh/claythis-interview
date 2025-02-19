@@ -10,9 +10,10 @@ import { MenuItem } from "../menu-item";
 type Props = {
   label: string;
   subItems: MenuItem[];
+  className?: HTMLDivElement["className"];
 };
 
-export function Group({ label, subItems }: Props) {
+export function Group({ label, subItems, className }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const componentId = useId();
@@ -23,6 +24,7 @@ export function Group({ label, subItems }: Props) {
       className={cn(
         "flex flex-col rounded-2xl py-2",
         isActiveGroup ? "bg-blue-gray-800" : "",
+        className,
       )}
     >
       <div className="flex h-12 cursor-pointer flex-row items-center gap-4 p-3">

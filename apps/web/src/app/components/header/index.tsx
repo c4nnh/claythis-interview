@@ -1,11 +1,10 @@
 "use client";
 
 import { IconFilledFolder } from "@/components/icons/filled-folder";
-import { IconMenuRight } from "@/components/icons/menu-right";
-import { Button } from "@/components/ui/button";
 import { cn } from "@/libs/classnames";
 import { usePathname } from "next/navigation";
-import { menuItems } from "./menu-item";
+import { menuItems } from "../menu-item";
+import { MobileMenu } from "./mobile-menu";
 
 export function Header() {
   const pathname = usePathname();
@@ -21,12 +20,7 @@ export function Header() {
 
   return (
     <>
-      <Button
-        icon={<IconMenuRight />}
-        variant="ghost"
-        size="icon"
-        className="mb-3 h-6 w-6 text-black sm:hidden"
-      />
+      <MobileMenu />
       <div
         className={cn(
           "flex flex-row items-center gap-2",
@@ -45,7 +39,7 @@ export function Header() {
           "hidden sm:flex",
         )}
       >
-        <div className="h-13 flex w-[52px] items-center justify-center rounded-full bg-arctic-blue-600 text-white">
+        <div className="flex h-13 w-[52px] items-center justify-center rounded-full bg-arctic-blue-600 text-white">
           {activeMenuItem.icon}
         </div>
         <span className="text-[32px] font-extrabold text-blue-gray-900">

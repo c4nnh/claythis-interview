@@ -14,7 +14,7 @@ export function Sidebar() {
       )}
     >
       <div className="flex flex-row items-center justify-between px-8 py-[30px]">
-        <IconLogo />
+        <IconLogo className="text-white" />
         <Button
           variant="ghost"
           size="icon"
