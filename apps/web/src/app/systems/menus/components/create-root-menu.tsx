@@ -76,6 +76,7 @@ export function CreateRootMenu() {
               placeholder: "Enter menu name",
               className: "w-full",
               readOnly: isCreating,
+              maxLength: 50,
             }}
             className="w-full"
           />

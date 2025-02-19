@@ -69,8 +69,8 @@ export default function CreateSubMenuPage() {
         <span className="text-sm text-blue-gray-600">Parent Data</span>
         <div
           className={cn(
-            "h-13 rounded-2xl bg-blue-gray-50 px-4 py-[14px] text-blue-gray-500",
-            "w-full lg:w-1/2",
+            "min-h-13 break-words rounded-2xl bg-blue-gray-50 px-4 py-[14px] text-blue-gray-500",
+            "lg:min-w-1/2 w-full lg:w-fit",
           )}
         >
           <span>{selectedMenu.name}</span>
@@ -84,6 +84,7 @@ export default function CreateSubMenuPage() {
             placeholder: "Enter menu name",
             className: "w-full lg:w-1/2",
             readOnly: isCreating,
+            maxLength: 50,
           }}
           className="w-full"
         />
