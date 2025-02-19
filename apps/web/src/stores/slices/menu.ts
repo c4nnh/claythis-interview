@@ -10,7 +10,6 @@ type MenuState = {
   isFetchingDetails?: boolean;
   isCreating?: boolean;
   isUpdating?: boolean;
-  error?: string;
 };
 
 const initialState: MenuState = {
@@ -28,12 +27,8 @@ const menuSlice = createSlice({
       state.isFetchingList = false;
       state.rootMenus = action.payload.menus;
     },
-    getRootMenusFailure: (
-      state,
-      action: PayloadAction<{ message: string }>,
-    ) => {
+    getRootMenusFailure: (state) => {
       state.isFetchingList = false;
-      state.error = action.payload.message;
     },
     getMenuDetails: (state, _: PayloadAction<{ id: string }>) => {
       state.isFetchingDetails = true;
@@ -49,12 +44,8 @@ const menuSlice = createSlice({
         relatedMenus: action.payload.menu.relatedMenus,
       });
     },
-    getMenuDetailsFailure: (
-      state,
-      action: PayloadAction<{ message: string }>,
-    ) => {
+    getMenuDetailsFailure: (state) => {
       state.isFetchingDetails = false;
-      state.error = action.payload.message;
     },
     createMenu: (
       state,
@@ -71,13 +62,16 @@ const menuSlice = createSlice({
         state.rootMenus = [menu, ...state.rootMenus];
       }
     },
-    createMenuFailure: (state, action: PayloadAction<{ message: string }>) => {
+    createMenuFailure: (state) => {
       state.isCreating = false;
-      state.error = action.payload.message;
     },
     updateMenu: (
       state,
-      _: PayloadAction<{ id: string; dto: UpdateMenuDto }>,
+      _: PayloadAction<{
+        id: string;
+        dto: UpdateMenuDto;
+        onSuccess: (Menu: Menu) => void;
+      }>,
     ) => {
       state.isUpdating = true;
     },
@@ -120,12 +114,8 @@ const menuSlice = createSlice({
         });
       }
     },
-    updateMenuFailure: (state, action: PayloadAction<{ message: string }>) => {
+    updateMenuFailure: (state) => {
       state.isUpdating = false;
-      state.error = action.payload.message;
-    },
-    clearError: (state) => {
-      state.error = undefined;
     },
   },
 });

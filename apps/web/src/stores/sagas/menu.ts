@@ -6,6 +6,7 @@ import {
   getRootMenusApi,
   updateMenuApi,
 } from "../services/menu";
+import { appActions } from "../slices/app";
 import { menuActions } from "../slices/menu";
 
 export type RawMenu = Omit<Menu, "parent" | "root"> & {
@@ -31,7 +32,12 @@ function* getRootMenusSaga() {
     );
   } catch (error) {
     yield put(
-      menuActions.getRootMenusFailure({ message: "Get root menus failed" }),
+      appActions.setNotification({
+        notification: {
+          message: "Get root menus failed",
+          variant: "destructive",
+        },
+      }),
     );
   }
 }
@@ -50,7 +56,12 @@ function* getMenuDetailsSaga(action: {
     );
   } catch (error) {
     yield put(
-      menuActions.getMenuDetailsFailure({ message: "Get menu details failed" }),
+      appActions.setNotification({
+        notification: {
+          message: "Get menu details failed",
+          variant: "destructive",
+        },
+      }),
     );
   }
 }
@@ -67,8 +78,23 @@ function* createMenuSaga(action: {
       }),
     );
     action.payload.onSuccess(response.id);
+    yield put(
+      appActions.setNotification({
+        notification: {
+          message: "Create menu successful",
+          variant: "success",
+        },
+      }),
+    );
   } catch (error) {
-    yield put(menuActions.createMenuFailure({ message: "Create menu failed" }));
+    yield put(
+      appActions.setNotification({
+        notification: {
+          message: "Create menu failed",
+          variant: "destructive",
+        },
+      }),
+    );
   }
 }
 
@@ -77,6 +103,7 @@ function* updateMenuSaga(action: {
   payload: {
     id: string;
     dto: UpdateMenuDto;
+    onSuccess: (menu: Menu) => void;
   };
 }) {
   try {
@@ -90,7 +117,23 @@ function* updateMenuSaga(action: {
         menu: response,
       }),
     );
+    yield put(
+      appActions.setNotification({
+        notification: {
+          message: "Update menu successful",
+          variant: "success",
+        },
+      }),
+    );
+    action.payload.onSuccess(response);
   } catch (error) {
-    yield put(menuActions.createMenuFailure({ message: "Update menu failed" }));
+    yield put(
+      appActions.setNotification({
+        notification: {
+          message: "Update menu failed",
+          variant: "destructive",
+        },
+      }),
+    );
   }
 }

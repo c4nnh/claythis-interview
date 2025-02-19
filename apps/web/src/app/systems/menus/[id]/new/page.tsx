@@ -25,7 +25,10 @@ export default function CreateSubMenuPage() {
     resolver: zodResolver(CreateMenuSchema),
   });
   const { selectedMenu, isCreating } = useSelector(menuState);
-  const { handleSubmit } = formMethods;
+  const {
+    handleSubmit,
+    formState: { isValid },
+  } = formMethods;
 
   if (!selectedMenu) {
     return <></>;
@@ -89,6 +92,7 @@ export default function CreateSubMenuPage() {
           className={cn("h-13 rounded-full", "w-full lg:w-1/2")}
           onClick={handleSubmit(create)}
           loading={isCreating}
+          disabled={!isValid}
         />
       </FormProvider>
     </div>

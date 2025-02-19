@@ -1,6 +1,6 @@
 "use client";
 
-import { useOnMount } from "@/hooks/use-onmount";
+import { useOnMount } from "@/hooks/use-on-mount";
 import { cn } from "@/libs/classnames";
 import { menuActions } from "@/stores/slices/menu";
 import { useDispatch } from "react-redux";

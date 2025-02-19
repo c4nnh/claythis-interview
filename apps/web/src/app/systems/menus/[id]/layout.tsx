@@ -1,7 +1,7 @@
 "use client";
 
 import { Loading } from "@/components/composites/loading";
-import { useOnMount } from "@/hooks/use-onmount";
+import { useOnMount } from "@/hooks/use-on-mount";
 import { menuActions, menuState } from "@/stores/slices/menu";
 import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";

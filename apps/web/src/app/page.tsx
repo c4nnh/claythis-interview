@@ -1,6 +1,6 @@
 "use client";
 
-import { useOnMount } from "@/hooks/use-onmount";
+import { useOnMount } from "@/hooks/use-on-mount";
 import { useRouter } from "next/navigation";
 
 export default function Root() {

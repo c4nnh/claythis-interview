@@ -25,7 +25,12 @@ export default function MenuDetailsPage() {
   const formMethods = useForm<FormData>({
     resolver: zodResolver(UpdateMenuSchema),
   });
-  const { handleSubmit, setValue } = formMethods;
+  const {
+    handleSubmit,
+    setValue,
+    reset,
+    formState: { isDirty, isValid },
+  } = formMethods;
 
   useEffect(() => {
     if (selectedMenu) {
@@ -42,6 +47,11 @@ export default function MenuDetailsPage() {
       menuActions.updateMenu({
         id,
         dto: data,
+        onSuccess: (updatedMenu) => {
+          reset({
+            name: updatedMenu.name,
+          });
+        },
       }),
     );
   }
@@ -100,6 +110,7 @@ export default function MenuDetailsPage() {
           className={cn("h-13 w-1/2 rounded-full")}
           onClick={handleSubmit(update)}
           loading={isUpdating}
+          disabled={!isDirty || !isValid}
         />
       </FormProvider>
     </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { Toaster } from "@/components/composites/toaster";
 import { store } from "@/stores";
 import localFont from "next/font/local";
 import { Provider } from "react-redux";
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={plusJakartaSans.className}>
         <Provider store={store}>
+          <Toaster />
           <main className="font- flex h-full w-full flex-row p-6">
             <Sidebar />
             <div className="flex h-full flex-1 flex-col">
